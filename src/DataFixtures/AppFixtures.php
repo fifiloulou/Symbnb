@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Ad;
 use Faker\Factory;
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -14,6 +15,9 @@ class AppFixtures extends Fixture
         // Utilisation de faker pour remplir des fausses données
         $faker = Factory::create('fR-r');
 
+        // Utilisation de slugify pour transformer une chaine de caractères en slug
+        $slugify = new Slugify();
+
         // Création d'une boucle qui va répéter 30 fois l'annonce
         for($i = 1; $i <= 30; $i++) {
 
@@ -22,6 +26,7 @@ class AppFixtures extends Fixture
 
             // On défini tous nos faker dans les variables
             $title = $faker->sentence();
+            $slug =$slugify->slugify($title);
             $coverImage = $faker->imageUrl(1000,350);
             $introduction = $faker->paragraph(2);
             $content = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
@@ -29,7 +34,7 @@ class AppFixtures extends Fixture
 
             // Création d'une annonce en utilisant les variables pour compléter l'annonce
             $ad->setTitle("$title")
-            ->setSlug("titre-de-l-annoce-n-$i")
+            ->setSlug("$slug")
             ->setCoverImage("$coverImage")
             ->setIntroduction("$introduction")
             ->setContent("$content")
