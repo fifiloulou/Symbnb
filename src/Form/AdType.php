@@ -43,11 +43,12 @@ class AdType extends AbstractType
             ->add('rooms', IntegerType::class, $this->getConfiguration("Nombre de chambres", "Le nombre de chambres disponibles"))
             ->add('price', MoneyType::class, $this->getConfiguration("Prix par nuit", "Indiquez le prix que vous voulez pour une nuit" ))
             ->add('images',
-            CollectionType::class,
-            [
-                'entry_type' => ImageType::class
-            ]
-            )
+                CollectionType::class,
+                [
+                    'entry_type' => ImageType::class,
+                    'allow_add' => true
+                ]
+                )
         ;
     }
 
