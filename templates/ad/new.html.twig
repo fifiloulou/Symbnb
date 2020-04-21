@@ -2,6 +2,9 @@
 
 {% block title %}Création d'une annonce{% endblock %}
 
+{# Permet d'afficher le formulaire que se trouve en bas de cette page #}
+{% form_theme form _self %}
+
 {% block body %}
     <div class="container">
         <h1>Créer une nouvelle annonce</h1> 
@@ -14,5 +17,34 @@
 
         {{ form_end(form) }}
 
+    </div>
+{% endblock %}
+
+{# A partir d'ici les blocks sont appeler par form_theme form _seft plus haut #}
+{% block _ad_images_widget %}
+    <p>Ici, vous pouvez ajouter vos propres images ! </p>
+
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <button type="button" id="add-image" class="btn btn-primary">Ajouter une image</button>
+    </div>
+{% endblock %}
+
+{# Block qui permet de n'appeler que le widget, sans les erreues, les labels et les aides#}
+{% block _ad_images_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _ad_images_entry_widget %}
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form.url) }}
+            </div>
+            <div class="col">
+                {{ form_widget(form.caption) }}
+            </div>
+        </div>   
     </div>
 {% endblock %}
