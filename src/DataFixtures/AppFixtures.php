@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Ad;
 use Faker\Factory;
 use App\Entity\Image;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -13,8 +14,26 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Utilisation de faker pour remplir des fausses données
-        $faker = Factory::create('fR-r');
+        $faker = Factory::create('fr_FR');
 
+        // Gestion des utilisateurs
+        $users =[];
+
+        for($i = 1; $i <= 10; $i++) {
+            $user = new User();
+
+            $user->setFirstName($faker->firstname)
+                ->setLastName($faker->lastname)
+                ->setEmail($faker->email)
+                ->setIntroduction($faker->sentence())
+                ->setDescription('<p>' . join('</p><p>', $faker->paragraphs(3)) . '</p>')
+                ->setHash('password');
+
+            $manager->persist($user);
+            $users[] = $user;
+        }
+
+        // Gestions des annonces
         // Création d'une boucle qui va répéter 30 fois l'annonce
         for($i = 1; $i <= 30; $i++) {
 
@@ -27,6 +46,8 @@ class AppFixtures extends Fixture
             $introduction = $faker->paragraph(2);
             $content = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
 
+            $user =$users[mt_rand(0, count($users) - 1)];
+
 
             // Création d'une annonce en utilisant les variables pour compléter l'annonce
             $ad->setTitle("$title")
@@ -34,7 +55,8 @@ class AppFixtures extends Fixture
                 ->setIntroduction("$introduction")
                 ->setContent("$content")
                 ->setPrice(mt_rand(40, 200))
-                ->setRooms(mt_rand(1, 5));
+                ->setRooms(mt_rand(1, 5))
+                ->setAuthor($user);
             
             // Permet d'enrichir les images
             for($j = 1; $j <= mt_rand(2,5); $j++) {
