@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AccountType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,6 +108,24 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * Permet de modifier le mot de passe
+     * 
+     * @Route("/account/password-update", name="account_password")
+     *
+     * @return Response
+     */
+    public function updatePassword(){
+        $passwordUpdate = new PasswordUpdate();
+
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+        
+        return $this->render('account/password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 }
 
 
