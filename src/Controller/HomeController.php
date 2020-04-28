@@ -2,11 +2,22 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController {
+
+    /**
+     * @Route("/", name="homepage")
+     *
+     * @return void
+     */
+    public function home() {
+        return $this->render(
+            'home.html.twig',
+            [ 'title' => "Coucou à tous"]
+        );
+    }
 
     /**
      * Multiroutage ici il y a 2 route pour une même fonction du controller
@@ -28,17 +39,6 @@ class HomeController extends AbstractController {
         );
     }
 
-    /**
-     * @Route("/", name="homepage")
-     *
-     * @return void
-     */
-    public function home(){
-        return $this->render(
-            'home.html.twig',
-            [ 'title' => "Coucou à tous"]
-        );
-    }
 }
 
 ?>
