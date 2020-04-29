@@ -21,48 +21,47 @@
     <div class="row">
         <div class="col-md-8 mb-3">
             {{ ad.content | raw }}
-
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {% for image in ad.images %}
-                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {%  if loop.first %} class="active" {%  endif %}></li>
-                        {% endfor %}
-                    </ol>
-                    <div class="carousel-inner">
-                        {% for image in ad.images %}
-                        <div class="carousel-item {%  if loop.first %} active {%  endif %}">
-                            <img src="{{ image.url }}" class="d-block w-100" alt="First slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ ad.title }}</h5>
-                                <p>{{ image.caption }}</p>
-                            </div>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for image in ad.images %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {%  if loop.first %} class="active" {%  endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for image in ad.images %}
+                    <div class="carousel-item {%  if loop.first %} active {%  endif %}">
+                        <img src="{{ image.url }}" class="d-block w-100" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ ad.title }}</h5>
+                            <p>{{ image.caption }}</p>
                         </div>
-                        {% endfor %}
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    {% endfor %}
                 </div>
-
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
+
         <div class="col">
+            {# Permet de simplifier l'écriture en remplacant ad.author par a #}
+            {% set a = ad.author %}
             <div class="row">
-                <div class="col-4">
-                    <img src="http://placehold.it/64x64" alt="Avatar de Joseph">
+                <div class="col-3">
+                    <img src="{{a.picture}}" class="avatar avatar-medium" alt="Avatar de {{a.fullName}}">
                 </div>
                 <div class="col">
-                    <h3>Joseph Dupont</h3>
-                    <span class="badge badge-primary">3 annonces</span>
+                    <h3>{{a.fullname}}</h3>
+                    <span class="badge badge-primary">{{a.ads | length}} annonces</span>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur assumenda ad vero vitae minus perferendis, asperiores voluptatum tempora totam quo!</p>
-            <p>Iusto autem in vitae omnis sit accusamus eius illo cum deleniti. Modi natus nulla incidunt ducimus maiores harum veritatis et.</p>
-            <p>Pariatur, in. Soluta voluptates quod obcaecati repellat numquam maxime facilis quo id quasi asperiores qui aliquid, dolores neque ullam officia.</p>
+            {{a.description | raw}}
         </div>    
     </div>
 </div>
