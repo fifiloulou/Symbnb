@@ -4,6 +4,7 @@ namespace App\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -33,11 +34,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTimeInterface", message="Attention, la date d'arrivée doit être au bon format !")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("\DateTimeInterface", message="Attention, la date de départ doit être au bon format !")
      */
     private $endDate;
 
