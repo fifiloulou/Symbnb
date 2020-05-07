@@ -11,7 +11,7 @@
         <h1>{{ad.title}}</h1>
         <p>{{ad.introduction}}</p>
         <p class="h2">
-            <strong>{{ad.rooms}} chambres</strong> pour <strong>{{ad.price}}&euro;</strong> par nuit
+            <strong>{{ad.rooms}} chambres</strong> pour <strong>{{ad.price | number_format(2, ',', ' ')}} &euro;</strong> par nuit
         </p>
         <a href="{{ path('booking_create', {'slug': ad.slug}) }}" class="btn btn-primary">Réserver !</a>
 
@@ -104,7 +104,7 @@
                     <a href="{{ path('user_show', {'slug': a.slug})}}">
                         <h3>{{a.fullname}}</h3>
                     </a>
-                    <span class="badge badge-primary">{{a.ads | length}} annonces</span>
+                    <span class="badge badge-primary">{{a.ads | length}} annonce(s)</span>
                 </div>
             </div>
             {{a.description | raw}}
