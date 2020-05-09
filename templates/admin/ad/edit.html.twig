@@ -113,7 +113,8 @@
         <div class="col-4">
             {% if value %}
                 <img src="{{value.url}}" class="img-fluid" alt="">
-            {% endif %}    
+            {% endif %}
+            {{form_row(form.url)}}     
         </div>
         <div class="col-6">
             {{ form_row(form.caption) }}
@@ -129,6 +130,12 @@
 {% block javascripts %}
 
     <script>
+        // Permet de chacher l'input et le label de la photo
+        let $input = $('input[name$="[url]"]')
+        $input.attr('type', 'hidden')
+        let $label = $('label[for$="url"]')
+        $label.remove()
+
         $(document).ready(function() {
             $('[data-action="delete"]').on('click', function(){
                 const target = this.dataset.target;
