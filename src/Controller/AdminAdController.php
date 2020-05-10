@@ -13,9 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads/{page}", name="admin_ads_index")
+     * @Route("/admin/ads/{page<\d+>?1}", name="admin_ads_index")
      */
-    public function index(AdRepository $repo, $page = 1)
+    public function index(AdRepository $repo, $page)
     {
         // Méthode find: permet de retrouver un enregistrement par son identifiant (prémisse de la pagination)
         //  $ad = $repo->find(332);
