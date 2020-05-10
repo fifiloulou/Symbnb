@@ -3,6 +3,7 @@
         "@symfony/webpack-encore": "^0.29.0",
         "core-js": "^3.0.0",
         "node-sass": "^4.14.1",
+        "popper.js": "^1.16.1",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.0.1",
         "webpack-notifier": "^1.6.0"
@@ -15,5 +16,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "jquery": "^3.5.1"
+    }
 }
