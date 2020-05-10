@@ -13,12 +13,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdController extends AbstractController
 {
     /**
-     * @Route("/admin/ads", name="admin_ads_index")
+     * @Route("/admin/ads/{page}", name="admin_ads_index")
      */
-    public function index(AdRepository $repo)
+    public function index(AdRepository $repo, $page = 1)
     {
+        // Méthode find: permet de retrouver un enregistrement par son identifiant (prémisse de la pagination)
+        //  $ad = $repo->find(332);
+
+        // $sd = $repo->findOneBy(['title' => "Annonce corrigée !",
+        // 'id' => 320
+        // ]);
+
+        // $ads = $repo->findBy([], [], 5, 0);
+
+        // dump($ad);
+
+        $limit = 10;
+
+        $start = $page * $limit - $limit;
+        // 1 * 10 = 10 - 10 = 0
+        // 2 * 10 = 20 - 10 = 10
+
         return $this->render('admin/ad/index.html.twig', [
-            'ads' => $repo->findAll()
+            'ads' => $repo->findBy([], [], $limit, $start)
         ]);
     }
 
