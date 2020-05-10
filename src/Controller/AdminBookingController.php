@@ -13,14 +13,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminBookingController extends AbstractController
 {
     /**
-     * @Route("/admin/bookings", name="admin_booking_index")
+     * @Route("/admin/bookings/{page<\d+>?1}", name="admin_booking_index")
      */
-    public function index(BookingRepository $repo)
+    public function index(BookingRepository $repo, $page)
     {
-        $bookings = $repo->findAll();
+        $limit = 10;
+
+        $start = $page * $limit - $limit;
+
+        $total = count($repo->findAll());
+
+        $pages = ceil($total / $limit); // 3.4 => 4 arrondie au dessus
 
         return $this->render('admin/booking/index.html.twig', [
-            'bookings' => $bookings,
+            'bookings' => $repo->findBy([], [], $limit, $start),
+            'pages' => $pages,
+            'page' => $page
         ]);
     }
 
