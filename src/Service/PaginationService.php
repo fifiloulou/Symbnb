@@ -255,6 +255,4 @@ class PaginationService {
         return $this->route;
     }
 
-
-
 }
